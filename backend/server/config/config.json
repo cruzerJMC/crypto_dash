@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "jasoncrescenzo",
+    "password": null,
+    "database": "crypto-dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "jasoncrescenzo",
+    "password": null,
+    "database": "crypto-text",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

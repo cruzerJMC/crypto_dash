@@ -17,6 +17,7 @@ const CryptoList = props => {
   console.log("LIST", props);
   return (
     // <Segment>
+
     <Table color={"violet"} inverted>
       <Table.Header>
         <Table.Row>
@@ -28,6 +29,7 @@ const CryptoList = props => {
           <Table.HeaderCell>24H Change</Table.HeaderCell>
           <Table.HeaderCell>Market Cap</Table.HeaderCell>
           <Table.HeaderCell>Total Supply</Table.HeaderCell>
+          <Table.HeaderCell>Add to Favorites</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
@@ -37,11 +39,11 @@ const CryptoList = props => {
             key={currency.id}
             {...currency}
             showDetails={props.showDetails}
+            addFav={props.addFav}
           />
         ))}
       </Table.Body>
     </Table>
-    // </Segment>
   );
 };
 export default CryptoList;

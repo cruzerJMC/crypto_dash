@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const bodyParser = require("body-parser");
 const app = express();
 const fetch = require("node-fetch");
@@ -7,19 +8,13 @@ const cors = require("cors");
 const moment = require("moment");
 const key = "fe278748eb49ae23227e6769d92ef40bde306a9f0c3d91513b3c09680189c717";
 const cc = require("cryptocompare");
-cc.setApiKey(key);
-const TIME_UNITS = 10;
-global.fetch = require("node-fetch");
+const socket = require("socket.io");
+
+// cc.setApiKey(key);
+// const TIME_UNITS = 10;
+// global.fetch = require("node-fetch");
+
 app.use(morgan("dev"));
-
-// Load Routes
-
-// const coinRoutes = require("./routes/coinlist");
-
-// Use Routes
-
-// app.use("/", coinRoutes);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -196,6 +191,7 @@ app.post("/historical", async (req, res) => {
       currency: "USD"
     });
     return {
+      time: object.time,
       d: date,
       open: o,
       high: h,
@@ -288,6 +284,7 @@ app.get("/news", async (req, res) => {
     let tickers = object.categories.split("|");
     // const key = Object.keys(object.RAW.USD);
     return {
+      id: object.id,
       date: date,
       mentions: tickers[0],
       img: object.imageurl,
@@ -303,4 +300,12 @@ app.get("/news", async (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+const server = app.listen(port, () => console.log(`Listening on port ${port}`));
+
+//set up socket io via function and pass in server
+let io = socket(server);
+
+//listen for event connection when the browser connection is made
+io.on("connection", socket => {
+  console.log("made socket connection", socket.id);
+});

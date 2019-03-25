@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CryptoList from "./CryptoList";
 import CryptoDash from "./CryptoDash";
 import Favorites from "./Favorites";
+import Search from "./Search";
 import {
   Menu,
   Icon,
@@ -20,7 +21,10 @@ class Homepage extends Component {
     newsList: [],
     coinDetails: [],
     coins: [],
-    clickedCrypto: null
+    clickedCrypto: null,
+    favorites: [],
+    favoriteHidden: true,
+    inputValue: ""
   };
 
   componentDidMount() {
@@ -56,13 +60,6 @@ class Homepage extends Component {
     //   .catch(err => console.log(err));
   }
 
-  // callApi = async () => {
-  //   const response = await fetch("/api/hello");
-  //   const body = await response.json();
-  //   if (response.status !== 200) throw Error(body.message);
-  //   return body;
-  // };
-
   showDetails = itemId => {
     const clickedCrypto = this.state.coinList.find(item => item.id === itemId);
     console.log("showing", clickedCrypto);
@@ -71,34 +68,91 @@ class Homepage extends Component {
     });
   };
 
+  addFav = itemId => {
+    // console.log("firing")
+    const foundCrypto = this.state.coinList.find(item => item.id === itemId);
+    const preventDoubles = this.state.favorites.find(
+      item => item.id === itemId
+    );
+    if (!preventDoubles) {
+      this.setState({
+        favorites: [...this.state.favorites, foundCrypto]
+      });
+    }
+  };
+  handleChange = event => {
+    // console.log("Changing")
+    // console.log (event.target.name)
+    this.setState({
+      inputValue: event.target.value
+    });
+  };
+
+  filterCryptos = () =>
+    this.state.coinList.filter(item => {
+      return (
+        item.company
+          .toLowerCase()
+          .includes(this.state.inputValue.toLowerCase()) ||
+        item.ticker
+          .toLowerCase()
+          .includes(this.state.inputValue.toLowerCase()) ||
+        item.market.toLowerCase().includes(this.state.inputValue.toLowerCase())
+      );
+    });
+
+  // deleteFav = itemId => {
+  //   const userFavorites = this.state.favorites.map(item => {
+  //     return item;
+  //   });
+  //   console.log("user weapons", userFavorites);
+  //   const deleteFav = userFavorites.find(item => item);
+  //   console.log("delete weapon", deleteFav);
+  //   const updateFav = this.state.favorites(item => {
+  //     return item.id !== itemId;
+  //   });
+  //   console.log("update Armory", updateFav);
+  //   if (deleteFav) {
+  //     this.setState({
+  //       favorites: updateFav
+  //     });
+  //   }
+  // };
+
   render() {
     // console.log("homepage", this.state.newsList);
     return (
       <div>
         {!this.state.clickedCrypto ? (
-          <Segment raised>
-            <Grid color="black" columns={2} textAlign="center">
-              <Divider inverted vertical>
-                ||
-              </Divider>
-              <Grid.Row color="black">
-                <Grid.Column color="black">
-                  <CryptoList
-                    coinList={this.state.coinList}
-                    showDetails={this.showDetails}
-                  />
-                </Grid.Column>
-                {/* </Segment> */}
+          <div>
+            <Search
+              handleChange={this.handleChange}
+              inputValue={this.state.inputValue}
+            />
+            <Segment raised>
+              <Grid color="black" columns={2} textAlign="center">
+                <Grid.Row color="black">
+                  <Grid.Column width={13} color="black">
+                    <CryptoList
+                      coinList={this.filterCryptos()}
+                      showDetails={this.showDetails}
+                      addFav={this.addFav}
+                    />
+                  </Grid.Column>
+                  {/* </Segment> */}
 
-                {/* <Divider vertical>||</Divider> */}
-                {/* <Segment> */}
-                <Grid.Column color="black">
-                  <Favorites coinList={this.state.coinList} />
-                </Grid.Column>
-                {/* </Segment> */}
-              </Grid.Row>
-            </Grid>
-          </Segment>
+                  {/* <Segment> */}
+                  <Grid.Column width={3} color="black">
+                    <Favorites
+                      favorites={this.state.favorites}
+                      showDetails={this.showDetails}
+                    />
+                  </Grid.Column>
+                  {/* </Segment> */}
+                </Grid.Row>
+              </Grid>
+            </Segment>
+          </div>
         ) : (
           // {/* </Segment> */}
           <CryptoDash

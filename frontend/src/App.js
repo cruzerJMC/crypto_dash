@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Header, Container, Segment } from "semantic-ui-react";
+import socketIOClient from "socket.io-client";
 
 import Homepage from "./Homepage";
 
@@ -50,18 +51,18 @@ class App extends Component {
       }
       `}
         </style>
-        <div className="App">
-          <div className="ui raised segment">
-            <div className="ui segment violet inverted">
-              <Header color={"violet"} inverted as="h1">
-                CryptoCurrency Dashboard
-              </Header>
-            </div>
+        {/* <div className="App"> */}
+        <div className="ui raised segment">
+          <div className="ui segment violet inverted">
+            <Header color={"violet"} inverted as="h1">
+              CryptoCurrency Dashboard
+            </Header>
           </div>
-          <Segment>
-            <Homepage />
-          </Segment>
         </div>
+        {/* <Segment color="black"> */}
+        <Homepage />
+        {/* </Segment> */}
+        {/* </div> */}
       </div>
     );
   }

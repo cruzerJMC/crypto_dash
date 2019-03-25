@@ -17,8 +17,14 @@ class FavoriteList extends Component {
   render() {
     return (
       <div>
-        {this.props.coinList.map(crypto => {
-          return <FavoriteCard key={crypto.id} {...crypto} />;
+        {this.props.favorites.map(crypto => {
+          return (
+            <FavoriteCard
+              key={crypto.id}
+              {...crypto}
+              showDetails={this.props.showDetails}
+            />
+          );
         })}
       </div>
     );

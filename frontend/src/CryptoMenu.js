@@ -27,6 +27,12 @@ class CryptoMenu extends Component {
         <Table.Cell>{this.props.CHANGEPCTDAY}%</Table.Cell>
         <Table.Cell>{this.props.MKTCAP}</Table.Cell>
         <Table.Cell>{this.props.SUPPLY}</Table.Cell>
+        <Table.Cell>
+          <Button
+            onClick={() => this.props.addFav(this.props.id)}
+            icon="heart"
+          />
+        </Table.Cell>
       </Table.Row>
     );
   }
