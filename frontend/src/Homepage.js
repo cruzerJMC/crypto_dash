@@ -79,7 +79,7 @@ class Homepage extends Component {
 
   addFav = itemId => {
     // console.log("firing")
-    const foundCrypto = this.state.coilList.find(item => item.id === itemId);
+    const foundCrypto = this.state.coinList.find(item => item.id === itemId);
     const preventDoubles = this.state.favorites.find(
       item => item.id === itemId
     );
@@ -155,6 +155,13 @@ class Homepage extends Component {
   disconnect = () => {
     // alert("disconnected:" + this.socket.id);
     this.setState({ state: "disconnected" });
+  };
+
+  upDateFav = () => {
+    return setInterval(
+      () => this.setState({ favorites: this.state.favorites }),
+      6000
+    );
   };
   render() {
     console.log("homepage coinList", this.state.coinList);
