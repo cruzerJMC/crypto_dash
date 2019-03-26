@@ -156,13 +156,6 @@ class Homepage extends Component {
     // alert("disconnected:" + this.socket.id);
     this.setState({ state: "disconnected" });
   };
-
-  upDateFav = () => {
-    return setInterval(
-      () => this.setState({ favorites: this.state.favorites }),
-      6000
-    );
-  };
   render() {
     console.log("homepage coinList", this.state.coinList);
     console.log("homepage coinPrice", this.state.response);

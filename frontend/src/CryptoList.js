@@ -14,7 +14,7 @@ import {
 } from "semantic-ui-react";
 
 const CryptoList = props => {
-  console.log("LIST", props);
+  // console.log("LIST", props);
   return (
     // <Segment>
 
@@ -25,8 +25,9 @@ const CryptoList = props => {
           <Table.HeaderCell>CyrptoCurrency</Table.HeaderCell>
           <Table.HeaderCell>Ticker</Table.HeaderCell>
           {/* <Table.HeaderCell>Exchange</Table.HeaderCell> */}
-          <Table.HeaderCell>Price</Table.HeaderCell>
-          <Table.HeaderCell>24H Change</Table.HeaderCell>
+          <Table.HeaderCell>Current Price</Table.HeaderCell>
+          <Table.HeaderCell>24H Change (%)</Table.HeaderCell>
+          <Table.HeaderCell>24H Change ($)</Table.HeaderCell>
           <Table.HeaderCell>Market Cap</Table.HeaderCell>
           {/* <Table.HeaderCell>Total Supply</Table.HeaderCell> */}
           <Table.HeaderCell>Add to Favorites</Table.HeaderCell>

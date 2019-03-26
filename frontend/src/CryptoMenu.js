@@ -2,15 +2,6 @@ import React, { Component } from "react";
 import { Image, Button, Table, Statistic } from "semantic-ui-react";
 
 class CryptoMenu extends Component {
-  // doubleClick = () => {
-  //   this.props.handleClickPost();
-  //   this.props.showDetails(this.props.id);
-  // };
-
-  state = {
-    color: ""
-  };
-
   render() {
     // console.log("Menu Props", this.props);
     return (
@@ -43,6 +34,11 @@ class CryptoMenu extends Component {
         <Table.Cell>
           <Statistic size="mini" color="orange">
             <Statistic.Value>{this.props.CHANGEPCTDAY}%</Statistic.Value>
+          </Statistic>
+        </Table.Cell>
+        <Table.Cell>
+          <Statistic size="mini" color="orange">
+            <Statistic.Value>{this.props.CHANGEDAY}</Statistic.Value>
           </Statistic>
         </Table.Cell>
         <Table.Cell>

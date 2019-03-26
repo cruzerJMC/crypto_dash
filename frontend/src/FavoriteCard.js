@@ -38,12 +38,12 @@ const FavoriteCard = props => {
               <h2>{props.company}</h2>
             </Card.Meta>
             <Card.Description color="orange">
-              <div>PRICE</div>
+              <div>OPENING PRICE</div>
               <Statistic horizontal color="green" size="mini">
                 {/* <Label color="grey" horizontal>
                   <h3>PRICE:</h3>
                 </Label> */}
-                <Statistic.Value>{props.price}</Statistic.Value>
+                <Statistic.Value>{props.OPENDAY}</Statistic.Value>
               </Statistic>
             </Card.Description>
           </Card.Content>
