@@ -18,7 +18,7 @@ const CryptoList = props => {
   return (
     // <Segment>
 
-    <Table color={"violet"} inverted>
+    <Table color={"grey"} inverted>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Click for Stats</Table.HeaderCell>

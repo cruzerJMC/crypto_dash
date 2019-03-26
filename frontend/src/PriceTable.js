@@ -3,7 +3,7 @@ import { Image, Button, Table } from "semantic-ui-react";
 
 class PriceTable extends Component {
   render() {
-    // console.log("Menu Props", this.props);
+    console.log("Menu Props", this.props);
     return (
       <Table.Row>
         {/* <Image
