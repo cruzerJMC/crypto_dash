@@ -3,6 +3,9 @@ import CryptoList from "./CryptoList";
 import CryptoDash from "./CryptoDash";
 import Favorites from "./Favorites";
 import Search from "./Search";
+import io from "socket.io-client";
+// import Profile from "./Profile";
+
 import {
   Menu,
   Icon,
@@ -24,7 +27,9 @@ class Homepage extends Component {
     clickedCrypto: null,
     favorites: [],
     favoriteHidden: true,
-    inputValue: ""
+    inputValue: "",
+    response: false,
+    endpoint: "http://localhost:5000"
   };
 
   componentDidMount() {
@@ -46,15 +51,19 @@ class Homepage extends Component {
           newsList: newsData
         });
       });
-    fetch("http://localhost:5000/coinlist")
-      .then(response => {
-        return response.json();
-      })
-      .then(coinList => {
-        return this.setState({
-          coinList: coinList
-        });
-      });
+    // fetch("http://localhost:5000/coinlist")
+    //   .then(response => {
+    //     return response.json();
+    //   })
+    //   .then(coinList => {
+    //     return this.setState({
+    //       coinList: coinList
+    //     });
+    //   });
+
+    // const { endpoint } = this.state;
+    // const socket = io(endpoint);
+    // socket.on("FromAPI", data => this.setState({ response: data }));
     // this.callApi()
     //   .then(res => this.setState({ response: res.express }))
     //   .catch(err => console.log(err));
@@ -70,7 +79,7 @@ class Homepage extends Component {
 
   addFav = itemId => {
     // console.log("firing")
-    const foundCrypto = this.state.coinList.find(item => item.id === itemId);
+    const foundCrypto = this.state.coilList.find(item => item.id === itemId);
     const preventDoubles = this.state.favorites.find(
       item => item.id === itemId
     );
@@ -119,8 +128,37 @@ class Homepage extends Component {
   //   }
   // };
 
+  getInitialState = () => {
+    return {
+      status: "disconnected"
+    };
+  };
+  componentWillMount() {
+    this.socket = io("http://localhost:5000");
+    this.socket.on("connect", this.connect);
+    this.socket.on("disconnect", this.disconnect);
+    const { endpoint } = this.state;
+    const socket = io(endpoint);
+    socket.on("FromAPI", data => this.setState({ coinList: data }));
+  }
+
+  // livePrice = () => {
+  //   const { endpoint } = this.state;
+  //   const socket = io(endpoint);
+  //   socket.on("FromAPI", data => this.setState({ response: data }));
+  // };
+  connect = () => {
+    // alert("Connected:" + this.socket.id);
+    this.setState({ state: "connected" });
+  };
+
+  disconnect = () => {
+    // alert("disconnected:" + this.socket.id);
+    this.setState({ state: "disconnected" });
+  };
   render() {
-    // console.log("homepage", this.state.newsList);
+    console.log("homepage coinList", this.state.coinList);
+    console.log("homepage coinPrice", this.state.response);
     return (
       <div>
         {!this.state.clickedCrypto ? (
@@ -129,6 +167,7 @@ class Homepage extends Component {
               handleChange={this.handleChange}
               inputValue={this.state.inputValue}
             />
+            {/* <Profile status={this.state.status} /> */}
             <Segment raised>
               <Grid color="black" columns={2} textAlign="center">
                 <Grid.Row color="black">
@@ -142,6 +181,11 @@ class Homepage extends Component {
                   {/* </Segment> */}
 
                   {/* <Segment> */}
+                  {/* <Grid.Column width={3} color="black">
+                    <Favorites
+                      favorites={this.state.favorites}
+                      showDetails={this.showDetails}
+                    /> */}
                   <Grid.Column width={3} color="black">
                     <Favorites
                       favorites={this.state.favorites}

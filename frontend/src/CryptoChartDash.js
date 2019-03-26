@@ -12,7 +12,7 @@ import {
   List
 } from "semantic-ui-react";
 import TableHeader from "./TableHeader";
-import AreaChart from "./AreaChart";
+import ChartContainer from "./ChartContainer";
 
 class CryptoChartDash extends Component {
   render() {
@@ -23,11 +23,7 @@ class CryptoChartDash extends Component {
       <div>
         {/* <Container style={{ padding: "5em 0em" }}> */}
         <Segment>
-          <AreaChart
-            historicals={this.props.historicals.filter(obj => {
-              return obj.x > length - 12;
-            })}
-          />
+          <ChartContainer lickedCrypto={this.props.clickedCrypto} />
           <TableHeader historicals={this.props.historicals} />
         </Segment>
         {/* </Container> */}

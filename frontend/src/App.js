@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Header, Container, Segment } from "semantic-ui-react";
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 
 import Homepage from "./Homepage";
 

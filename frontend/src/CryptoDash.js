@@ -76,7 +76,10 @@ class CryptoDash extends Component {
               />
             </div>
           ) : (
-            <CryptoChartDash historicals={this.state.historicals} />
+            <CryptoChartDash
+              clickedCrypto={this.props.clickedCrypto}
+              historicals={this.state.historicals}
+            />
           )}
         </Container>
       </div>
